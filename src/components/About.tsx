@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Satellite, Cpu, Zap } from 'lucide-react';
+import { Satellite, Cpu, Zap, School, Scale3D, Scale3DIcon, School2Icon, LucideSchool2, Lightbulb, AirVent, ZapIcon, ZapOff } from 'lucide-react';
 
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -24,19 +24,19 @@ export default function About() {
 
   const features = [
     {
-      icon: <Satellite className="w-8 h-8" />,
-      title: 'Space Innovation',
-      description: 'Pushing boundaries with cutting-edge space technology solutions',
+      icon: <School2Icon className="w-8 h-8" />,
+      title: 'Educationn',
+      description: 'CSE Undergraduate student at Pimpri Chinchwad University',
     },
     {
-      icon: <Cpu className="w-8 h-8" />,
-      title: 'Advanced Systems',
-      description: 'Building intelligent systems for tomorrow\'s challenges',
+      icon: <Lightbulb className="w-8 h-8" />,
+      title: 'Startups',
+      description: 'Building Startup and excited to Join other Startups',
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: 'High Performance',
-      description: 'Optimized for speed, reliability, and scalability',
+      title: 'ACM Student Chapter',
+      description: 'ACM Design Team Member ',
     },
   ];
 
