@@ -6,6 +6,8 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Cursor from './components/Cursor';
+import Licenses from './components/Licences'; 
+import Internships from './components/Internships';
 
 function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -35,6 +37,8 @@ function App() {
         <Hero />
         <About />
         <Projects />
+        <Licenses />
+        <Internships />
         <Skills />
         <Contact />
       </div>

@@ -23,30 +23,33 @@ export default function Skills() {
 
   const skillCategories = [
     {
-      category: 'Frontend',
+      category: 'Frontend / UI Development Skills',
       skills: [
-        { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'Three.js', level: 85 },
-        { name: 'Tailwind CSS', level: 92 },
+        { name: 'HTML, CSS, and basic web design', level: 70 },
+        { name: 'Building responsive & interactive UI', level: 60 },
+        { name: 'Front-end frameworks and development', level: 80 },
+        { name: 'Tailwind CSS', level: 80 },
+        { name: 'Understanding user experience (UX) fundamentals', level: 95 },
       ],
     },
     {
-      category: 'Backend',
+      category: 'Backend/Full-Stack/Programming Skills',
       skills: [
-        { name: 'Node.js', level: 88 },
-        { name: 'Python', level: 85 },
-        { name: 'PostgreSQL', level: 80 },
-        { name: 'GraphQL', level: 82 },
+        { name: 'Python programming and data structures', level: 60 },
+        { name: 'Node.js', level: 85 },
+        { name: 'Django framework', level: 50 },
+        { name: 'Database management and SQL queries', level: 70 },
+        { name: 'Full-stack development concepts and deployment basics', level: 55 },
       ],
     },
     {
-      category: 'Space Tech',
+      category: 'Cloud, Security, Blockchain & Professional Skills',
       skills: [
-        { name: 'Orbital Mechanics', level: 78 },
-        { name: 'Data Visualization', level: 90 },
-        { name: 'Real-time Systems', level: 85 },
-        { name: 'WebGL', level: 87 },
+        { name: 'Blockchain', level: 80 },
+        { name: 'Software Engineering', level: 70 },
+        { name: 'Cybersecurity', level: 85 },
+        { name: 'Project & Productivity', level: 65 },
+        { name: 'Google Cloud fundamentals, application deployment, core infrastructure', level: 55 },
       ],
     },
   ];
@@ -99,8 +102,8 @@ export default function Skills() {
 
         <div className="mt-20 grid md:grid-cols-4 gap-8 slide-up-element opacity-0">
           {[
-            { number: '50+', label: 'Projects' },
-            { number: '5+', label: 'Years Experience' },
+            { number: '10+', label: 'Projects' },
+            { number: '1+', label: 'Years Experience' },
             { number: '30+', label: 'Happy Clients' },
             { number: '100%', label: 'Satisfaction' },
           ].map((stat, index) => (
