@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Satellite, Cpu, Zap, School, Scale3D, Scale3DIcon, School2Icon, LucideSchool2, Lightbulb, AirVent, ZapIcon, ZapOff } from 'lucide-react';
+import {Zap,School2Icon,Lightbulb,} from 'lucide-react';
 
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ export default function About() {
     {
       icon: <Zap className="w-8 h-8" />,
       title: 'ACM Student Chapter',
-      description: 'ACM Design Team Member ',
+      description: 'ACM Design Team Member Designer and Developer',
     },
   ];
 
