@@ -3,7 +3,7 @@ import { Mail, Send, Github, Linkedin, InstagramIcon } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import SuccessAnimation from './SuccessAnimation';
 import './SuccessAnimation.css';
-import { FaDiscord } from 'react-icons/fa'
+import { SiLeetcode } from 'react-icons/si';
 
 interface FormData {
   name: string;
@@ -73,7 +73,7 @@ export default function Contact() {
     { icon: <Github className="w-6 h-6" />, href: 'https://github.com/tejasmurkute', label: 'GitHub' },
     { icon: <Linkedin className="w-6 h-6" />, href: 'https://www.linkedin.com/in/tejas-murkute-7ba932289', label: 'LinkedIn' },
     { icon: <InstagramIcon className="w-6 h-6" />, href: 'https://www.instagram.com/tejas._.1794', label: 'Instagram' },
-    { icon: <FaDiscord className="w-6 h-6" />, href: 'https://discord.com/users/917696080873914388', label: 'FaDiscord' },
+    { icon: <SiLeetcode className="w-6 h-6" />, href: 'https://leetcode.com/u/Tejas_1794/', label: 'SiLeetcode' },
   ];
 
   return (
@@ -159,7 +159,7 @@ export default function Contact() {
               <div className="space-y-4 mb-12">
                 <div className="flex items-center gap-4 text-gray-400 hover:text-cyan-400 transition-colors">
                   <Mail className="w-5 h-5" />
-                  <a href="mailto:tejasmurkute2004@gmail.com" className="hover:underline">
+                  <a href="mailto:tejasmurkute2004@gmail.com">
                     tejasmurkute2004@gmail.com
                   </a>
                 </div>

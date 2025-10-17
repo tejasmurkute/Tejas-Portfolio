@@ -55,13 +55,20 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50">
+            <a
+              href="/Tejas Resume.pdf"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download resume (opens in new tab)"
+              className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
+            >
               <span className="relative z-10">Resume</span>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </button>
+            </a>
 
             <button className="px-8 py-4 border-2 border-cyan-400 rounded-full font-semibold text-lg hover:bg-cyan-400/10 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/30">
-            Connect with me
+              Connect with me
             </button>
           </div>
         </div>
