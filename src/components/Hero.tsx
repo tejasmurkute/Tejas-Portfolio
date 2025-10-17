@@ -56,8 +56,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href="/Tejas Resume.pdf"
-              download
+              href="/Resume.pdf" download
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Download resume (opens in new tab)"
