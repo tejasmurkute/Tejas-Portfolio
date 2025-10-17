@@ -56,7 +56,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href="/Resume.pdf?v=2" download
+              href="/Resume.pdf?v=2https://drive.google.com/file/d/1wA683NrsCEc2bFapgQotKeXe19tVsv7f/view?usp=drive_link" download
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Download resume (opens in new tab)"
