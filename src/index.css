@@ -1,0 +1,351 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* ============================================================
+   DESIGN TOKENS
+   One restrained palette: near-black void, off-white ink,
+   a single electric violet accent, one supporting azure.
+   ============================================================ */
+@theme {
+  /* Surfaces */
+  --color-void: #030305;
+  --color-void-2: #060609;
+  --color-surface: #0a0a11;
+  --color-surface-2: #101019;
+
+  /* Ink */
+  --color-ink: #ececf3;
+  --color-ink-dim: #9d9dae;
+  --color-ink-mute: #6c6c7d;
+  --color-ink-faint: #454553;
+
+  /* Accent */
+  --color-accent: #8b5cf6;
+  --color-accent-bright: #b9a2ff;
+  --color-accent-deep: #4c1d95;
+  --color-azure: #3b6ff5;
+
+  /* Lines */
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+
+  /* Type */
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+@layer base {
+  * {
+    border-color: var(--color-line);
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 34%, transparent);
+    color: #fff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Accessible focus — visible and on-brand, never a default browser ring */
+  :focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.09);
+    border: 3px solid var(--color-void);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--color-accent) 55%, transparent);
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-ink-faint);
+  }
+
+  /* Autofill must not punch a white hole through the dark UI */
+  input:-webkit-autofill,
+  textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--color-ink);
+    -webkit-box-shadow: 0 0 0 1000px #0b0b13 inset;
+    caret-color: var(--color-ink);
+    transition: background-color 9999s ease-out;
+  }
+}
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+@layer components {
+  /* Page gutter — one source of truth for horizontal rhythm */
+  .shell {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .shell {
+      padding-inline: 3.5rem;
+    }
+  }
+  @media (min-width: 1440px) {
+    .shell {
+      padding-inline: 4.5rem;
+    }
+  }
+
+  /* Small uppercase technical metadata */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    line-height: 1;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-ink-mute);
+    font-weight: 500;
+  }
+  @media (min-width: 768px) {
+    .meta {
+      font-size: 0.6875rem;
+    }
+  }
+
+  /* Translucent panel — restrained, never frosted-glass soup */
+  .panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.008));
+    border: 1px solid var(--color-line);
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+}
+
+/* ============================================================
+   TEXTURE + ATMOSPHERE
+   ============================================================ */
+
+:root {
+  /* fractalNoise tile, inlined so the grain costs zero network requests */
+  --noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Film grain. Fixed, non-interactive, zero GPU composition penalty */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: var(--noise-url);
+}
+
+/* Atmospheric radial glow — GPU-friendly, no live blur repaints */
+.aura {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(60px);
+  transform: translate3d(0, 0, 0);
+  will-change: opacity;
+}
+
+/* Hairline rule that fades at both ends */
+.rule-fade {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.11) 22%,
+    rgba(255, 255, 255, 0.11) 78%,
+    transparent
+  );
+}
+
+/* Gradient text — reserved for one accented word, never a whole headline */
+.accent-text {
+  background: linear-gradient(100deg, #a78bfa 0%, #8b5cf6 45%, #6366f1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Persistent vertical measure lines — the "laboratory" scaffold */
+.measure-lines {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  max-width: 1400px;
+  margin-inline: auto;
+  display: none;
+}
+@media (min-width: 1024px) {
+  .measure-lines {
+    display: block;
+  }
+}
+.measure-lines span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.04) 12%,
+    rgba(255, 255, 255, 0.04) 88%,
+    transparent
+  );
+}
+
+/* Blinking caret for the "command interface" form aesthetic */
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: caret-blink 1.15s steps(1) infinite;
+}
+
+@keyframes scroll-travel {
+  0% {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(300%);
+    opacity: 0;
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes orbit-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.62;
+    transform: scale(1.05);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   Kill decorative motion; keep opacity and state changes.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .grain::after {
+    animation: none;
+  }
+}
