@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { TextShimmerWave } from '@/components/core/text-shimmer-wave';
 
 interface WaveformLoaderProps {
   onComplete: () => void;
@@ -297,9 +298,14 @@ export function WaveformLoader({ onComplete }: WaveformLoaderProps) {
       className="flex flex-col items-center gap-3.5 select-none pointer-events-none"
     >
       {/* Small subtle text above loading bar */}
-      <span className="font-mono text-[0.625rem] tracking-[0.24em] uppercase text-ink-mute/75">
+      <TextShimmerWave 
+        className="font-mono text-[0.625rem] tracking-[0.24em] uppercase text-ink-mute/75"
+        duration={1.5}
+        zDistance={1}
+        spread={1.5}
+      >
         getting you in
-      </span>
+      </TextShimmerWave>
       <canvas ref={canvasRef} className="block" />
     </motion.div>
   );

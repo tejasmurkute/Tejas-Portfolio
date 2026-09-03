@@ -1,0 +1,259 @@
+%-------------------------
+% Resume in Latex
+% Author
+% License : MIT
+%------------------------
+
+%---- Required Packages and Functions ----
+
+\documentclass[a4paper,11pt]{article}
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cfr-lm}
+\usepackage[T1]{fontenc}
+\setlength{\multicolsep}{0pt}
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\geometry{left=1.4cm, top=0.8cm, right=1.2cm, bottom=1cm}
+% Adjust margins
+%\addtolength{\oddsidemargin}{-0.5in}
+%\addtolength{\evensidemargin}{-0.5in}
+%\addtolength{\textwidth}{1in}
+\usepackage[most]{tcolorbox}
+\tcbset{
+	frame code={}
+	center title,
+	left=0pt,
+	right=0pt,
+	top=0pt,
+	bottom=0pt,
+	colback=gray!20,
+	colframe=white,
+	width=\dimexpr\textwidth\relax,
+	enlarge left by=-2mm,
+	boxsep=4pt,
+	arc=0pt,outer arc=0pt,
+}
+
+\urlstyle{same}
+
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumePOR}[3]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1}\hspace{0.3mm}#2 & \textit{\small{#3}}
+    \end{tabular*}
+    \vspace{-2mm}
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#4}} \\
+        \textit{\footnotesize{#3}} &  \footnotesize{#2}\\
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+% \renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=0mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=1.7mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{justify}\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep,labelsep=1.2mm,itemsep=0mm]\small}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{2mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\resumeItemListStart}{\begin{justify}\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep,labelsep=1.2mm,itemsep=0mm]\small}
+\newcommand{\resumeItemListEnd}{\end{itemize}\end{justify}\vspace{-2mm}}
+\newcommand{\cvsection}[1]{%
+\vspace{2mm}
+\begin{tcolorbox}
+    \textbf{\large #1}
+\end{tcolorbox}
+    \vspace{-4mm}
+}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+%---- End of Packages and Functions ------
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%
+%%%%%% DEFINE ELEMENTS HERE %%%%%%%
+\newcommand{\name}{Dheesh Medekar} % Your Name
+\newcommand{\course}{Computer Science and Engineering} % Your Program
+\newcommand{\roll}{} % Your Roll No.
+\newcommand{\phone}{9922101972} % Your Phone Number
+\newcommand{\emaila}{dheeshm@gmail.com} %Email 1
+
+\begin{document}
+\fontfamily{cmr}\selectfont
+%----------HEADING-----------------
+
+{
+\begin{tabularx}{\linewidth}{L r} \\
+  \textbf{\Large \name} & {\raisebox{0.0\height}{\footnotesize \faPhone}\ +91-\phone}\\
+  {Bachelor of Technology, Computer Science} & \href{mailto:\emaila}{\raisebox{0.0\height}{\footnotesize \faEnvelope}\ {\emaila}} \\
+  {Pimpri Chinchwad University, Pune} & \href{https://github.com/dheesh-m}{\raisebox{0.0\height}{\footnotesize \faGithub}\ {GitHub Profile}} \\
+  {Hinjewadi, Pune, Maharashtra 411057} & \href{https://linkedin.com/in/dheesh-medekar-019a8a291}{\raisebox{0.0\height}{\footnotesize \faLinkedin}\ {LinkedIn Profile}}
+\end{tabularx}
+}
+
+
+%-----------EDUCATION-----------
+\section{\textbf{Education}}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Bachelor of Technology in Computer Science and Engineering}{CGPA: 6.9 / 10}
+      {Pimpri Chinchwad University, Pune}{Aug. 2023 -- Aug. 2027}
+  \resumeSubHeadingListEnd
+\vspace{-5.5mm}
+
+%-----------RELEVANT COURSEWORK-----------
+\section{\textbf{Relevant Coursework}}
+ \begin{itemize}[leftmargin=0.05in, label={}]
+    \small{\item{
+     Data Structures and Algorithms, Internet of Things (IoT), Web Development, Operating Systems
+    }}
+ \end{itemize}
+\vspace{-14pt}
+
+%-----------EXPERIENCE-----------------
+\section{\textbf{Experience}}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Bhoomitrace}{Pune, India}
+      {Frontend Developer Intern}{June 2026 -- Aug. 2026}
+      \vspace{-2.0mm}
+      \resumeItemListStart
+    \item {Built and shipped responsive frontend web features in React, translating designs into production-ready UI.}
+    \item {Integrated REST APIs into the frontend, wiring UI components to backend services for dynamic, real-time data.}
+    \item {Collaborated with the team to refine UI requirements and improve overall user experience.}
+    \resumeItemListEnd
+
+    \vspace{-3.0mm}
+
+    \resumeSubheading
+      {Raftaar}{Remote}
+      {Freelance Frontend Developer}{Jan. 2025 -- Feb. 2025}
+      \vspace{-2.0mm}
+      \resumeItemListStart
+    \item {Developed and deployed a responsive company website using HTML, CSS, JavaScript, and React.}
+    \item {Collaborated with the client to implement UI requirements and improve overall user experience.}
+    \item {Optimized responsiveness and layout compatibility across desktop and mobile devices.}
+    \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+\vspace{-5.5mm}
+
+%-----------PROJECTS-----------------
+\section{\textbf{Projects}}
+\resumeSubHeadingListStart
+    \resumeProject
+      {Automated Personal Transit -- IoT-driven Smart Auto-driving System} %Project Name
+      {A small-scale autonomous electric vehicle prototype.} %Project description
+      {Raspberry Pi, Sensors, Python, IoT} %Event Dates
+
+      \resumeItemListStart
+        \item {Built a small-scale autonomous electric vehicle prototype capable of learning paths and finding the shortest route.}
+        \item {Implemented obstacle detection through sensors for safe, real-time navigation.}
+        \item {Added GPS tracking with an interactive display for live user interaction and monitoring.}
+    \resumeItemListEnd
+    \vspace{-2mm}
+
+    \resumeProject
+      {FarmLens -- AI Crop Disease Detection System} %Project Name
+      {Cloud-based AI platform that diagnoses crop disease from leaf images.} %Project description
+      {Python, FastAPI, Flutter, Node.js, SQL} %Event Dates
+
+      \resumeItemListStart
+        \item {Built a cloud-based AI platform performing end-to-end data ingestion, transformation, and leaf image classification for crop disease detection.}
+        \item {Designed and integrated a FastAPI backend handling a real-time data pipeline from mobile input to model prediction output.}
+        \item {Implemented a machine learning and computer vision pipeline for disease identification, with structured data modeling for storing prediction records.}
+    \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+\vspace{-8.5mm}
+
+%-----------PARTICIPATION-----------------
+\section{\textbf{Participation}}
+ \begin{itemize}[leftmargin=0.05in, label={}]
+    \small{\item{
+     Ideathon 1.0 @ PCU (2024) \quad$\vcenter{\hbox{\tiny$\bullet$}}$\quad Ideathon 2.0 @ PCU (2024) \quad$\vcenter{\hbox{\tiny$\bullet$}}$\quad VibeCoding Finalist @ PCU (2025) \quad$\vcenter{\hbox{\tiny$\bullet$}}$\quad Kridarambh Football @ PCU (2026)
+    }}
+ \end{itemize}
+\vspace{-14pt}
+
+%-----------Technical skills-----------------
+\section{\textbf{Technical Skills}}
+ \begin{itemize}[leftmargin=0.05in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, Java, C/C++, JavaScript, HTML/CSS } \\
+     \textbf{Developer Tools}{: VS Code, Docker, GitHub, Git } \\
+     \textbf{Technologies \& Frameworks}{: React, REST APIs, Flask, IoT } \\
+     \textbf{Databases}{: MySQL, MongoDB } \\
+    }}
+ \end{itemize}
+ \vspace{-16pt}
+
+%-----------EXTRACURRICULAR-----------------
+\section{\textbf{Extracurricular}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+\resumeSubheading
+      {University-Level Basketball Player}{}
+      {}{Nov. 2024 -- March 2025}
+      \vspace{-2.0mm}
+      \resumeItemListStart
+    \item {Represented the university in major tournaments.}
+    \item {Showcased leadership, discipline, and team collaboration.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+\vspace{-5mm}
+
+%-------------------------------------------
+\end{document}

@@ -1,9 +1,7 @@
-import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { PROFILE, SOCIALS } from '@/data/site';
-import { Section } from '@/components/ui/Section';
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader';
-import { Reveal, RevealItem, StaggerGroup } from '@/components/ui/Reveal';
 import { ContactForm } from '@/components/ContactForm/ContactForm';
 
 const github = SOCIALS.find((s) => s.icon === 'github');
@@ -19,67 +17,76 @@ const CHANNELS: { icon: LucideIcon; label: string; value: string; href?: string 
 
 export function Contact() {
   return (
-    <Section id="contact" label="Contact">
-      <div className="shell">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* ---------- Left: heading + channels ---------- */}
-          <div className="lg:col-span-5">
-            <SectionHeader index="07" eyebrow="Contact" title="Let's Connect" align="left" />
+    <section id="contact" className="relative bg-void pt-32 pb-16 overflow-hidden border-t border-line">
+      <div className="shell relative z-20 mb-20 sm:mb-32">
+        <SectionHeader
+          index="07"
+          eyebrow="Contact"
+          title="Let's Connect"
+          subtitle="Have a project in mind?"
+          align="left"
+        />
+      </div>
 
-            <Reveal delay={0.15}>
-              <p className="mt-6 max-w-sm text-[0.95rem] leading-[1.75] text-ink-mute">
-                Have a project in mind or just want to say hi? I&rsquo;d love to hear from you.
-              </p>
-            </Reveal>
-
-            <StaggerGroup
-              each={0.07}
-              delay={0.15}
-              as="ul"
-              className="mt-10 flex flex-col border-t border-line"
-            >
-              {CHANNELS.map((channel) => {
-                const Icon = channel.icon;
-                const external = channel.href?.startsWith('http');
-                const inner = (
-                  <>
-                    <span className="flex size-10 shrink-0 items-center justify-center border border-line bg-white/[0.015] text-ink-mute transition-colors duration-500 group-hover:border-accent/45 group-hover:text-accent-bright">
-                      <Icon className="size-[15px]" strokeWidth={1.5} />
+      <div className="shell relative z-20 flex flex-col lg:flex-row gap-16 lg:gap-24 mb-32">
+        
+        {/* Left: Channels */}
+        <div className="w-full lg:w-5/12">
+          <ul className="flex flex-col border-t border-line">
+            {CHANNELS.map((channel) => {
+              const Icon = channel.icon;
+              const external = channel.href?.startsWith('http');
+              const inner = (
+                <>
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-line bg-white/[0.015] text-ink-mute transition-colors duration-500 group-hover:border-accent/50 group-hover:bg-accent/10 group-hover:text-accent-bright">
+                    <Icon className="size-[18px]" strokeWidth={1.5} />
+                  </span>
+                  <div className="flex flex-col ml-6">
+                    <span className="text-[0.75rem] font-mono tracking-widest uppercase text-ink-dim mb-1">{channel.label}</span>
+                    <span className="text-lg text-ink group-hover:text-accent-bright transition-colors duration-500">
+                      {channel.value}
                     </span>
-                    <span className="min-w-0">
-                      <span className="meta block">{channel.label}</span>
-                      <span className="mt-1.5 block truncate text-[0.85rem] text-ink-dim transition-colors duration-500 group-hover:text-ink">
-                        {channel.value}
-                      </span>
-                    </span>
-                  </>
-                );
+                  </div>
+                  {channel.href && (
+                    <ArrowUpRight className="ml-auto size-5 text-ink-faint opacity-0 -translate-x-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-accent" />
+                  )}
+                </>
+              );
 
-                return (
-                  <RevealItem key={channel.label} as="li" className="border-b border-line">
-                    {channel.href ? (
-                      <a
-                        href={channel.href}
-                        {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-                        className="group flex items-center gap-4 py-4 transition-[padding] duration-500 [transition-timing-function:var(--ease-out-expo)] hover:pl-2"
-                      >
-                        {inner}
-                      </a>
-                    ) : (
-                      <div className="group flex items-center gap-4 py-4">{inner}</div>
-                    )}
-                  </RevealItem>
-                );
-              })}
-            </StaggerGroup>
-          </div>
+              return (
+                <li key={channel.label} className="border-b border-line group">
+                  {channel.href ? (
+                    <a
+                      href={channel.href}
+                      {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
+                      className="flex items-center py-6 transition-[padding] duration-500 [transition-timing-function:var(--ease-out-expo)] hover:pl-4"
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <div className="flex items-center py-6">{inner}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
-          {/* ---------- Right: form ---------- */}
-          <Reveal delay={0.1} y={34} className="lg:col-span-7">
+        {/* Right: Contact Form */}
+        <div className="w-full lg:w-7/12">
+          <div className="p-8 sm:p-12 rounded-3xl border border-line bg-white/[0.01] hover:bg-white/[0.02] transition-colors duration-700">
+            <h3 className="text-3xl font-display text-ink mb-8">Send a message</h3>
             <ContactForm />
-          </Reveal>
+          </div>
         </div>
       </div>
-    </Section>
+
+      {/* Colossal Footer Typography */}
+      <div className="w-full overflow-hidden flex justify-center pb-8 border-t border-line/50 pt-16 mt-16">
+        <h1 className="font-display text-[15vw] leading-[0.8] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-ink to-ink/20 mix-blend-difference pointer-events-none select-none hover:opacity-80 transition-opacity">
+          LET'S TALK.
+        </h1>
+      </div>
+    </section>
   );
 }

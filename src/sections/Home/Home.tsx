@@ -1,136 +1,149 @@
-import { motion } from 'framer-motion';
-import { Download } from 'lucide-react';
-import { MEDIA, PROFILE, STATS } from '@/data/site';
-import { inView } from '@/utils/motion';
-import { scrollToSection } from '@/utils/cn';
-import { Section } from '@/components/ui/Section';
-import { Button } from '@/components/ui/Button';
-import { Reveal, RevealItem, StaggerGroup } from '@/components/ui/Reveal';
-import { SplitText } from '@/components/ui/SplitText';
-import { Portrait } from '@/components/Portrait/Portrait';
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Track the scroll progress through the 300vh container
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // --------------
+  // Scroll Mappings
+  // --------------
+
+  // Text fading sequence
+  // "Concepts." appears 0 -> 20%, stays, fades out at 30%
+  const opacityConcepts = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 1, 1, 0]);
+  const yConcepts = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [40, 0, 0, -40]);
+
+  // "Structure." appears 35 -> 50%, stays, fades out at 65%
+  const opacityStructure = useTransform(scrollYProgress, [0.35, 0.45, 0.55, 0.65], [0, 1, 1, 0]);
+  const yStructure = useTransform(scrollYProgress, [0.35, 0.45, 0.55, 0.65], [40, 0, 0, -40]);
+
+  // "I BUILD THINGS." appears at 70% and stays
+  const opacityFinal = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]);
+  const scaleFinal = useTransform(scrollYProgress, [0.7, 0.85], [0.8, 1]);
+  const blurFinal = useTransform(scrollYProgress, [0.7, 0.85], ['blur(10px)', 'blur(0px)']);
+
+  // --------------
+  // 3D Artifact Transformations
+  // --------------
+  // General rotation for the whole assembly group
+  const groupRotateX = useTransform(scrollYProgress, [0, 1], [45, 0]);
+  const groupRotateY = useTransform(scrollYProgress, [0, 1], [-45, 0]);
+  const groupScale = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+
+  // The artifact is made of 4 glass layers.
+  // At 0%, they are separated on the Z-axis (exploded).
+  // At 100%, they merge together (Z offset = 0) and glow.
+  
+  const zLayer1 = useTransform(scrollYProgress, [0, 0.7, 1], [300, 50, 0]);
+  const zLayer2 = useTransform(scrollYProgress, [0, 0.7, 1], [100, 20, 0]);
+  const zLayer3 = useTransform(scrollYProgress, [0, 0.7, 1], [-100, -20, 0]);
+  const zLayer4 = useTransform(scrollYProgress, [0, 0.7, 1], [-300, -50, 0]);
+
+  const rotationLayer1 = useTransform(scrollYProgress, [0, 0.7, 1], [90, 10, 0]);
+  const rotationLayer2 = useTransform(scrollYProgress, [0, 0.7, 1], [45, 5, 0]);
+  const rotationLayer3 = useTransform(scrollYProgress, [0, 0.7, 1], [-45, -5, 0]);
+  const rotationLayer4 = useTransform(scrollYProgress, [0, 0.7, 1], [-90, -10, 0]);
+
+  // Opacity & Border glows as they merge
+  const artifactOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 0.8, 1, 1]);
+  const glowIntensity = useTransform(scrollYProgress, [0.6, 1], [0, 1]);
+
   return (
-    <Section id="home" label="Introduction" divider={false} className="pt-28 sm:pt-32 lg:pt-36">
-      <div className="shell">
-        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
-          {/* ---------- Copy ---------- */}
-          <div className="lg:col-span-7 xl:col-span-6">
-            <Reveal>
-              <div className="flex items-center gap-3">
-                <span className="meta text-accent">Welcome</span>
-                <span aria-hidden className="h-px w-12 bg-linear-to-r from-accent/60 to-transparent" />
-              </div>
-            </Reveal>
+    <section ref={containerRef} id="home" className="relative h-[350vh] bg-void">
+      {/* Sticky container that stays fixed while scrolling through the 350vh height */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden perspective-[1200px]">
+        
+        {/* Background ambient glow that increases with scroll */}
+        <motion.div
+          className="absolute inset-0 bg-accent/20 blur-[150px] -z-10"
+          style={{ opacity: glowIntensity, scale: groupScale }}
+        />
 
-            <h2 className="display mt-6 text-[clamp(2.5rem,7.5vw,5.25rem)] leading-[0.95]">
-              <span className="block text-ink">
-                <SplitText text="Turning Ideas" each={0.06} />
-              </span>
-              <span className="block">
-                <SplitText text="Into" each={0.06} delay={0.12} />{' '}
-                <span className="accent-text">
-                  <SplitText text="Reality." each={0.06} delay={0.2} />
-                </span>
-              </span>
-            </h2>
+        <div className="flex h-full w-full items-center justify-center">
+          
+          {/* Typographic overlays */}
+          <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+            <motion.h2
+              className="absolute font-display text-[clamp(2.5rem,7.5vw,5.25rem)] text-ink-mute tracking-tight"
+              style={{ opacity: opacityConcepts, y: yConcepts }}
+            >
+              Ideas.
+            </motion.h2>
 
-            <Reveal delay={0.15}>
-              <p className="mt-8 max-w-xl text-[0.95rem] leading-[1.75] text-ink-dim">
-                I&rsquo;m a Computer Science Engineer who loves to design, develop and ship products
-                that solve real-world problems. I enjoy working with modern technologies and turning
-                complex problems into simple, beautiful and effective solutions.
-              </p>
-            </Reveal>
+            <motion.h2
+              className="absolute font-display text-[clamp(2.5rem,7.5vw,5.25rem)] text-ink-dim tracking-tight"
+              style={{ opacity: opacityStructure, y: yStructure }}
+            >
+              Structure.
+            </motion.h2>
 
-            <Reveal delay={0.25}>
-              <div className="mt-10 flex flex-wrap items-center gap-3">
-                <Button variant="primary" arrow="right" onClick={() => scrollToSection('projects')}>
-                  Explore my work
-                </Button>
-                <Button
-                  variant="outline"
-                  href={PROFILE.resumeUrl}
-                  icon={<Download strokeWidth={1.75} />}
-                >
-                  Download resume
-                </Button>
-              </div>
-            </Reveal>
+            <motion.div
+              className="absolute flex flex-col items-center justify-center gap-4"
+              style={{ opacity: opacityFinal, scale: scaleFinal, filter: blurFinal }}
+            >
+              <h2 className="display text-center text-[clamp(3rem,9vw,6rem)] leading-none text-ink drop-shadow-[0_0_20px_rgba(139,92,246,0.5)]">
+                I BUILD <br />
+                <span className="accent-text">THINGS.</span>
+              </h2>
+            </motion.div>
           </div>
 
-          {/* ---------- Portrait ---------- */}
+          {/* 3D Artifact Assembly */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={inView}
-            transition={{ duration: 1.1, delay: 0.15, ease: EASE }}
-            className="relative mx-auto w-full max-w-[19rem] sm:max-w-[21rem] lg:col-span-5 lg:mx-0 lg:ml-auto lg:max-w-none xl:col-span-6 xl:pl-10"
+            className="relative z-10 size-64 md:size-80 lg:size-96 [transform-style:preserve-3d]"
+            style={{
+              rotateX: groupRotateX,
+              rotateY: groupRotateY,
+              scale: groupScale,
+              opacity: artifactOpacity,
+            }}
           >
-            <Portrait
-              src={MEDIA.portrait || undefined}
-              alt={`${PROFILE.fullName}, ${PROFILE.role}`}
-              variant="floating"
-              className="lg:max-w-[24rem] lg:ml-auto"
+            {/* Layer 4: Deepest */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl border border-accent/20 bg-void/50 backdrop-blur-sm"
+              style={{ z: zLayer4, rotateZ: rotationLayer4 }}
+            />
+            
+            {/* Layer 3 */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl border border-accent/40 bg-accent/5 backdrop-blur-md"
+              style={{ z: zLayer3, rotateZ: rotationLayer3 }}
             >
-              {/* Metadata card clipped to the frame's lower edge */}
-              <motion.div
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={inView}
-                transition={{ duration: 0.9, delay: 0.65, ease: EASE }}
-                className="panel absolute -bottom-6 -left-4 flex flex-col gap-2 px-4 py-3 backdrop-blur-md sm:-left-6 sm:px-5 sm:py-4"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="size-1 rounded-full bg-accent" />
-                  <span className="meta text-ink-dim">CSE Student</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="size-1 rounded-full bg-azure" />
-                  <span className="meta text-ink-dim">Problem Solver</span>
-                </div>
-              </motion.div>
+              {/* Inner geometric accent */}
+              <div className="absolute inset-6 rounded-full border border-accent/20 border-dashed" />
+            </motion.div>
 
-              {/* Vertical spine label */}
-              <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={inView}
-                transition={{ duration: 1, delay: 0.8 }}
-                className="meta absolute -right-8 top-1/2 hidden -translate-y-1/2 rotate-90 whitespace-nowrap text-ink-faint xl:block"
-              >
-                {PROFILE.location}
-              </motion.span>
-            </Portrait>
+            {/* Layer 2 */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl border border-accent/60 bg-accent/10 backdrop-blur-lg flex items-center justify-center"
+              style={{ z: zLayer2, rotateZ: rotationLayer2 }}
+            >
+              <div className="size-32 rounded-lg border border-accent/30 rotate-45" />
+            </motion.div>
+
+            {/* Layer 1: Front-most */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl border border-accent/80 bg-linear-to-br from-accent/20 to-transparent backdrop-blur-xl shadow-[0_0_50px_rgba(139,92,246,0.3)]"
+              style={{ z: zLayer1, rotateZ: rotationLayer1 }}
+            >
+              <div className="absolute inset-4 rounded-xl border border-accent/50" />
+            </motion.div>
+
+            {/* Central Core (Glows at the end) */}
+            <motion.div
+              className="absolute inset-0 m-auto size-16 rounded-full bg-accent blur-[1px] mix-blend-screen"
+              style={{ opacity: glowIntensity }}
+            />
           </motion.div>
-        </div>
 
-        {/* ---------- Stats ---------- */}
-        <StaggerGroup
-          each={0.08}
-          delay={0.1}
-          className="panel mt-20 grid grid-cols-2 divide-x divide-y divide-line sm:mt-24 lg:mt-28 lg:grid-cols-4 lg:divide-y-0"
-        >
-          {STATS.map((stat) => (
-            <RevealItem
-              key={stat.label}
-              className="group relative overflow-hidden px-5 py-7 text-center sm:px-6 sm:py-9"
-            >
-              {/* Hover wash */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-0 bg-linear-to-t from-accent/8 to-transparent transition-[height] duration-700 [transition-timing-function:var(--ease-out-expo)] group-hover:h-full"
-              />
-              <div className="relative font-display text-[clamp(1.9rem,4.4vw,2.9rem)] leading-none font-medium tracking-tight text-ink transition-colors duration-500 group-hover:text-accent-bright">
-                {stat.value}
-              </div>
-              <div className="meta relative mt-3">{stat.label}</div>
-            </RevealItem>
-          ))}
-        </StaggerGroup>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

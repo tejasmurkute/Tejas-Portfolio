@@ -1,115 +1,74 @@
-import { useMemo, useState } from 'react';
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import { PROJECTS, PROJECT_FILTERS } from '@/data/projects';
-import type { ProjectCategory } from '@/data/projects';
-import { inView } from '@/utils/motion';
-import { cn } from '@/utils/cn';
-import { Section } from '@/components/ui/Section';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { PROJECTS } from '@/data/projects';
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader';
-import { Button } from '@/components/ui/Button';
-import { Reveal } from '@/components/ui/Reveal';
 import { ProjectCard } from '@/components/ProjectCard/ProjectCard';
 
-type Filter = ProjectCategory | 'all';
-
 export function Projects() {
-  const [filter, setFilter] = useState<Filter>('all');
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const visible = useMemo(
-    () => (filter === 'all' ? PROJECTS : PROJECTS.filter((p) => p.category === filter)),
-    [filter],
-  );
+  // The container needs to be tall enough to allow for scrolling.
+  // 6 projects * roughly 100vw = ~600vw scroll distance, so ~400vh is a good balance.
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
 
-  // Empty filters would leave a hole in the layout; hide them instead.
-  const filters = useMemo(
-    () => PROJECT_FILTERS.filter((f) => f.id === 'all' || PROJECTS.some((p) => p.category === f.id)),
-    [],
-  );
+  // Map vertical scroll progress to horizontal translation
+  // To stop exactly at the last card, we need to translate by -100% of the scrolling track's width
+  // plus 1 viewport width (so the last card sits on screen instead of scrolling off).
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-85%']); // Roughly stopping at the last card
 
   return (
-    <Section id="projects" label="Projects">
-      <div className="shell">
-        <SectionHeader
-          index="02"
-          eyebrow="Selected Work"
-          title="I Build Things"
-          subtitle="Some of the projects I've worked on"
-        />
+    <section ref={containerRef} id="projects" className="relative h-[400vh] bg-void">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
+        
+        {/* Background Typography Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 -z-10 select-none">
+          <span className="font-display text-[20vw] font-bold text-accent-bright whitespace-nowrap">
+            SELECTED WORK
+          </span>
+        </div>
 
-        {/* ---- Filters ---- */}
-        <Reveal delay={0.1} className="mt-12 sm:mt-14">
-          <div
-            role="tablist"
-            aria-label="Filter projects by category"
-            className="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-1 border border-line p-1"
-          >
-            {filters.map((f) => {
-              const isActive = filter === f.id;
-              const count =
-                f.id === 'all'
-                  ? PROJECTS.length
-                  : PROJECTS.filter((p) => p.category === f.id).length;
-              return (
-                <button
-                  key={f.id}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setFilter(f.id)}
-                  className={cn(
-                    'relative px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] transition-colors duration-400 sm:px-5',
-                    isActive ? 'text-white' : 'text-ink-mute hover:text-ink-dim',
-                  )}
-                >
-                  {isActive && (
-                    <motion.span
-                      layoutId="filter-pill"
-                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute inset-0 bg-accent/85"
-                    />
-                  )}
-                  <span className="relative">{f.label}</span>
-                  <sup
-                    className={cn(
-                      'relative ml-1 text-[0.55em] transition-colors duration-400',
-                      isActive ? 'text-white/70' : 'text-ink-faint',
-                    )}
-                  >
-                    {count}
-                  </sup>
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
+        <div className="shell relative z-20 mb-8 sm:mb-16">
+          <SectionHeader
+            index="02"
+            eyebrow="Portfolio"
+            title="I Build Things"
+            subtitle="Scroll horizontally to explore"
+            align="left"
+          />
+        </div>
 
-        {/* ---- Grid ---- */}
-        <LayoutGroup>
-          <motion.div
-            layout
-            className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
-          >
-            <AnimatePresence mode="popLayout">
-              {visible.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        </LayoutGroup>
-
-        {/* ---- Footer action ---- */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={inView}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14 flex flex-col items-center gap-5 sm:mt-16"
+        {/* Horizontal Scrolling Track */}
+        <motion.div 
+          className="flex gap-8 px-6 md:px-12 lg:px-24 w-max"
+          style={{ x }}
         >
-          <div aria-hidden className="rule-fade w-full max-w-md" />
-          <Button variant="outline" arrow="right" href="https://github.com/tejas-murkute">
-            View all projects
-          </Button>
+          {PROJECTS.map((project) => (
+            <div key={project.id} className="w-[85vw] max-w-[32rem] sm:max-w-[40rem] h-[60vh] max-h-[40rem] shrink-0 relative">
+              {/* Number overlay */}
+              <div className="absolute top-6 left-6 z-20 overflow-hidden pointer-events-none">
+                <motion.span 
+                  initial={{ y: "100%" }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="block font-mono text-xs text-accent uppercase tracking-widest drop-shadow-md"
+                >
+                  {project.index} &mdash; {project.year}
+                </motion.span>
+              </div>
+
+              {/* Card Component inside */}
+              <div className="w-full h-full">
+                 <ProjectCard project={project} />
+              </div>
+            </div>
+          ))}
         </motion.div>
+        
       </div>
-    </Section>
+    </section>
   );
 }

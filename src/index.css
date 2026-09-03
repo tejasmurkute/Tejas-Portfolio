@@ -11,26 +11,26 @@
    ============================================================ */
 @theme {
   /* Surfaces */
-  --color-void: #030305;
-  --color-void-2: #060609;
-  --color-surface: #0a0a11;
-  --color-surface-2: #101019;
+  --color-void: #05010a;
+  --color-void-2: #0a0216;
+  --color-surface: #120524;
+  --color-surface-2: #1a0833;
 
   /* Ink */
-  --color-ink: #ececf3;
-  --color-ink-dim: #9d9dae;
-  --color-ink-mute: #6c6c7d;
-  --color-ink-faint: #454553;
+  --color-ink: #f8f7ff;
+  --color-ink-dim: #c5bdf4;
+  --color-ink-mute: #8e84c9;
+  --color-ink-faint: #5a508f;
 
   /* Accent */
-  --color-accent: #8b5cf6;
-  --color-accent-bright: #b9a2ff;
-  --color-accent-deep: #4c1d95;
-  --color-azure: #3b6ff5;
+  --color-accent: #b24bf3;
+  --color-accent-bright: #d992ff;
+  --color-accent-deep: #591090;
+  --color-azure: #4b8df8;
 
   /* Lines */
-  --color-line: rgba(255, 255, 255, 0.07);
-  --color-line-strong: rgba(255, 255, 255, 0.14);
+  --color-line: rgba(178, 75, 243, 0.15);
+  --color-line-strong: rgba(178, 75, 243, 0.3);
 
   /* Type */
   --font-display: 'Space Grotesk Variable', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
@@ -54,6 +54,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
 
   body {
@@ -96,19 +98,7 @@
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--color-void);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.09);
-    border: 3px solid var(--color-void);
-    border-radius: 99px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: color-mix(in oklab, var(--color-accent) 55%, transparent);
+    display: none;
   }
 
   input,
