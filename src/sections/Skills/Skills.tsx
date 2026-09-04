@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { skillsList } from './skillsData';
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 
 export function Skills() {
   const [activeIndex, setActiveIndex] = useState(0);

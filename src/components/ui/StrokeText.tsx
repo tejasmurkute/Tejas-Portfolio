@@ -30,11 +30,11 @@ const StrokeText = ({
   className = '',
   style = {}
 }) => {
-  const rootRef = useRef(null);
-  const strokeTextRef = useRef(null);
-  const wipeRectRef = useRef(null);
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const strokeTextRef = useRef<SVGTextElement>(null);
+  const wipeRectRef = useRef<SVGRectElement>(null);
 
-  const [box, setBox] = useState(null);
+  const [box, setBox] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
 
   const rawId = useId();
   const wipeId = `stroke-text-wipe-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
@@ -112,7 +112,7 @@ const StrokeText = ({
     const fillEnabled = fillMode !== 'none';
     const useWipe = fillEnabled && fillMode === 'wipe';
     const fillDuration = Math.max(0.4, drawDuration * 0.5);
-    const staggerConfig = reverse ? { each: stagger, from: 'end' } : stagger;
+    const staggerConfig = reverse ? { each: stagger, from: 'end' as const } : stagger;
     const targets = [...strokes, ...fills, wipe].filter(Boolean);
 
     const setStart = () => {
@@ -164,9 +164,9 @@ const StrokeText = ({
       return tl;
     };
 
-    let timeline = null;
-    let scrollTrigger = null;
-    let removeHover = null;
+    let timeline: gsap.core.Timeline | null = null;
+    let scrollTrigger: ScrollTrigger | null = null;
+    let removeHover: (() => void) | null = null;
 
     if (trigger === 'hover') {
       setEnd();

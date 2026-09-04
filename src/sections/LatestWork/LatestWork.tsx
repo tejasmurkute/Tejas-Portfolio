@@ -73,7 +73,6 @@ const MotionImage = ({ work, index, scrollYProgress, totalSections, setIsHoverin
 
 export function LatestWork() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeWork = workList[activeIndex];
   const sectionRef = useRef<HTMLDivElement>(null);
 
   // Custom Cursor State
